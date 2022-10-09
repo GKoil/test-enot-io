@@ -15,7 +15,7 @@ function DayTasks({ data, tasks }: DayTasksType) {
   const value = useContext(context);
 
   const handleToggleTask = (id: number) => {
-    console.log(id, "id handle");
+    // process request
     value?.actions.toggleTask(id);
   };
 
