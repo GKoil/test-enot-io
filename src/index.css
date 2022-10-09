@@ -1,5 +1,5 @@
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Abhaya Libre", "Arial", sans-serif;
   font-weight: 400;
   line-height: 24px;
   max-width: 390px;
@@ -69,4 +69,9 @@ footer {
 body {
   --main-dark: #121212;
   --main-gray: #F4F4F4;
+  --main-light-gray: #A9A9A9;
+
+  --status-hight: #FF0000;
+  --status-low: #366EFF;
+  --status-medium: #FFEB33;
 }

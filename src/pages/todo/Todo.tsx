@@ -7,6 +7,7 @@ import styles from "./Todo.module.scss";
 
 import context from "../../context/Context";
 import TASKS from "../../constants/tasks";
+import DayTasks from "./components/DayTasks";
 
 function Todo() {
   const value = useContext(context);
@@ -22,7 +23,7 @@ function Todo() {
   };
 
   return (
-    <div className={styles.todo__title}>
+    <div>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h4">To Do</Typography>
         <IconButton onClick={toggleModal}>
@@ -32,11 +33,10 @@ function Todo() {
 
       {status === "loading" && <span>spinner</span>}
 
-      <ul>
+      <ul className={styles.todo__tasks}>
         {value?.data?.tasks.map((item) => (
           <li key={item.id}>
-            {item.title}
-            {item.description}
+            <DayTasks data={item.date} tasks={item.tasks} />
           </li>
         ))}
       </ul>

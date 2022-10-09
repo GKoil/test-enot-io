@@ -19,7 +19,6 @@ function Provider({ children }: ProviderType) {
     },
     toggleNews: () => {},
     addTasks: (tasks: Task[]) => {
-      console.log(tasks);
       setData((prev) => ({
         tasks,
         news: prev ? prev.news : { isShow: false },

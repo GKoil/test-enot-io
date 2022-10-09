@@ -1,9 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createTheme, ThemeProvider } from "@mui/material";
 import "./index.css";
 import App from "./App";
 import Provider from "./context/Provider";
+import "@fontsource/abhaya-libre";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Arial", "sans-serif"].join(","),
+  },
+});
 
 const queryClient = new QueryClient();
 
@@ -14,7 +22,9 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider>
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>,

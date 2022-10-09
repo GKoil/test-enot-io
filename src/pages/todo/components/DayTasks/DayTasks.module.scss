@@ -1,0 +1,33 @@
+.dayTasks {
+  &__item {
+    background: #282828;
+    box-shadow: 16px 16px 20px rgba(0, 0, 0, 0.15),
+      -8px -8px 20px rgba(255, 255, 255, 0.05);
+    border-radius: 40px;
+    padding: 16px 25px 18px 16px;
+  }
+
+  &__itemPriorityWrapper {
+    height: 100%;
+  }
+
+  &__itemPriority {
+    height: 100%;
+    width: 5px;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    &_hight {
+      background-color: var(--status-hight);
+    }
+
+    &_medium {
+      background-color: var(--status-medium);
+    }
+
+    &_low {
+      background-color: var(--status-low);
+    }
+  }
+}
