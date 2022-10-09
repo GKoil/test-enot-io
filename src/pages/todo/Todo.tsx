@@ -26,8 +26,8 @@ function Todo() {
     <div>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h4">To Do</Typography>
-        <IconButton onClick={toggleModal}>
-          <SettingsIcon fontSize="large" />
+        <IconButton className={styles.todo__setting} onClick={toggleModal}>
+          <SettingsIcon style={{ color: "#F4F4F4" }} fontSize="large" />
         </IconButton>
       </Box>
 

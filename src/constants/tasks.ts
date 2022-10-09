@@ -24,7 +24,7 @@ const TASKS: Task[] = [
         title: "Call",
         description: "Call my mom",
         priority: "medium",
-        isCompleted: false,
+        isCompleted: true,
       },
     ],
   },

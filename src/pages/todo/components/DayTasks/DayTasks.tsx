@@ -10,10 +10,6 @@ type DayTasksType = {
 };
 
 function DayTasks({ data, tasks }: DayTasksType) {
-  const handleChangePriority = () => {
-    // Process change
-  };
-
   return (
     <section>
       {data}
@@ -27,8 +23,7 @@ function DayTasks({ data, tasks }: DayTasksType) {
           >
             <Box display="flex" gap={1}>
               <div className={styles.dayTasks__itemPriorityWrapper}>
-                <button
-                  onClick={handleChangePriority}
+                <div
                   className={classNames(styles.dayTasks__itemPriority, {
                     [styles.dayTasks__itemPriority_hight]:
                       task.priority === "hight",
@@ -37,14 +32,20 @@ function DayTasks({ data, tasks }: DayTasksType) {
                     [styles.dayTasks__itemPriority_low]:
                       task.priority === "low",
                   })}
-                  type="button"
                 >
                   <span className="visually-hidden">Изменить статус</span>
-                </button>
+                </div>
               </div>
               <div>
-                <Typography>{task.title}</Typography>
-                <Typography>{task.description}</Typography>
+                <Typography
+                  className={classNames(styles.dayTasks__itemTitle, {
+                    [styles.dayTasks__itemTitle_completed]: task.isCompleted,
+                  })}
+                  variant="h5"
+                >
+                  {task.title}
+                </Typography>
+                <Typography variant="subtitle2">{task.description}</Typography>
               </div>
             </Box>
             <Toggler />
