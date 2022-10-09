@@ -68,8 +68,8 @@ const CustomSwitch = styled((props: SwitchProps) => (
   },
 }));
 
-function Toggler() {
-  return <CustomSwitch />;
+function Toggler(props: SwitchProps) {
+  return <CustomSwitch {...props} />;
 }
 
 export default Toggler;

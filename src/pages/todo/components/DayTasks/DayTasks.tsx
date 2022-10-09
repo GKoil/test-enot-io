@@ -1,15 +1,24 @@
 import { Typography, Box } from "@mui/material";
 import classNames from "classnames";
-import { Tasks } from "@/types/task.type";
+import { useContext } from "react";
+import { Task } from "@/types/task.type";
 import Toggler from "../../../../ui-kit/Toggler";
 import styles from "./DayTasks.module.scss";
+import context from "../../../../context/Context";
 
 type DayTasksType = {
   data: string;
-  tasks: Tasks[];
+  tasks: Task[];
 };
 
 function DayTasks({ data, tasks }: DayTasksType) {
+  const value = useContext(context);
+
+  const handleToggleTask = (id: number) => {
+    console.log(id, "id handle");
+    value?.actions.toggleTask(id);
+  };
+
   return (
     <section>
       {data}
@@ -48,7 +57,10 @@ function DayTasks({ data, tasks }: DayTasksType) {
                 <Typography variant="subtitle2">{task.description}</Typography>
               </div>
             </Box>
-            <Toggler />
+            <Toggler
+              checked={task.isCompleted}
+              onChange={() => handleToggleTask(task.id)}
+            />
           </Box>
         ))}
       </div>

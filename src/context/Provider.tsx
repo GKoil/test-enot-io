@@ -13,9 +13,20 @@ function Provider({ children }: ProviderType) {
 
   const actions = {
     toggleTask: (id: number) => {
-      const selectedTask = data?.tasks.find((task) => task.id === id);
-      if (!selectedTask || !data) return;
-      setData(data);
+      const selectedTaskIndex = data?.tasks.findIndex((task) => task.id === id);
+      if (selectedTaskIndex === undefined || !data?.tasks) return;
+      const selectedTask = data?.tasks[selectedTaskIndex];
+
+      const newTasks = [...data.tasks];
+      newTasks.splice(selectedTaskIndex, 1, {
+        ...selectedTask,
+        isCompleted: !selectedTask.isCompleted,
+      });
+      setData((prev) => {
+        if (!prev) return null;
+
+        return { ...prev, tasks: newTasks };
+      });
     },
     toggleNews: () => {},
     addTasks: (tasks: Task[]) => {

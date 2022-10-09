@@ -8,6 +8,7 @@ import styles from "./Todo.module.scss";
 import context from "../../context/Context";
 import TASKS from "../../constants/tasks";
 import DayTasks from "./components/DayTasks";
+import { Task } from "@/types/task.type";
 
 function Todo() {
   const value = useContext(context);
@@ -22,6 +23,17 @@ function Todo() {
     setIsOpen((prev) => !prev);
   };
 
+  const transformTasks = (tasks?: Task[]) => {
+    if (!tasks) return {};
+
+    return tasks.reduce((acc, item): { [key: string]: Task[] } => {
+      if (acc[item.date]) {
+        return { ...acc, [item.date]: [...acc[item.date], item] };
+      }
+      return { ...acc, [item.date]: [item] };
+    }, {} as { [key: string]: Task[] });
+  };
+
   return (
     <div>
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -34,11 +46,15 @@ function Todo() {
       {status === "loading" && <span>spinner</span>}
 
       <ul className={styles.todo__tasks}>
-        {value?.data?.tasks.map((item) => (
-          <li key={item.id}>
-            <DayTasks data={item.date} tasks={item.tasks} />
-          </li>
-        ))}
+        {Object.entries(transformTasks(value?.data?.tasks)).map(
+          ([dateTask, itemTasks]) => {
+            return (
+              <li key={dateTask}>
+                <DayTasks data={dateTask} tasks={itemTasks} />
+              </li>
+            );
+          },
+        )}
       </ul>
 
       {isOpen && <ModalSetting isOpen={isOpen} toggleModal={toggleModal} />}
