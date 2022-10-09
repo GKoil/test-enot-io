@@ -7,6 +7,8 @@ body {
   padding: 0;
   text-transform: none;
   margin: 0 auto;
+  background-color: var(--main-dark);
+  color: var(--main-gray);
 }
 a {
   text-decoration: none;
@@ -60,4 +62,11 @@ main {
 }
 footer {
   flex-shrink: 0;
+}
+
+/* colors */
+
+body {
+  --main-dark: #121212;
+  --main-gray: #F4F4F4;
 }
