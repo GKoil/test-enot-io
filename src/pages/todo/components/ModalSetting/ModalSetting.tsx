@@ -1,5 +1,8 @@
 import { Box, Modal, Switch, Typography } from "@mui/material";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useContext, useState } from "react";
+import getNews from "../../../../api";
+import context from "../../../../context/Context";
 
 const style = {
   position: "absolute" as "absolute",
@@ -20,9 +23,19 @@ type ModalSettingType = {
 };
 
 function ModalSetting({ isOpen, toggleModal }: ModalSettingType) {
+  const value = useContext(context);
   const [isChecked, setIsChecked] = useState(false);
 
+  const { refetch } = useQuery(
+    ["news"],
+    () => {
+      getNews.getNews();
+    },
+    { enabled: false },
+  );
+
   const toggleNews = (event: React.ChangeEvent<HTMLInputElement>) => {
+    refetch();
     setIsChecked(event.target.checked);
   };
 
