@@ -1,6 +1,7 @@
 import { Typography, Box } from "@mui/material";
 import classNames from "classnames";
 import { useContext } from "react";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Task } from "@/types/task.type";
 import Toggler from "../../../../ui-kit/Toggler";
 import styles from "./DayTasks.module.scss";
@@ -21,7 +22,10 @@ function DayTasks({ data, tasks }: DayTasksType) {
 
   return (
     <section>
-      {data}
+      <Box display="flex" flexWrap="wrap" alignItems="center" gap={1}>
+        <CheckBoxIcon />
+        <Typography variant="h6">{`${data} Tasks`}</Typography>
+      </Box>
       <div className={styles.dayTasks__item}>
         {tasks.map((task) => (
           <Box

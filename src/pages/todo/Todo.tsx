@@ -48,16 +48,16 @@ function Todo() {
       {status === "success" && (
         <ul className={styles.todo__tasks}>
           {Object.entries(transformTasks(value?.data?.tasks)).map(
-            ([dateTask, itemTasks]) => {
-              return (
-                <li key={dateTask}>
-                  <DayTasks data={dateTask} tasks={itemTasks} />
-                </li>
-              );
-            },
+            ([dateTask, itemTasks]) => (
+              <li key={dateTask}>
+                <DayTasks data={dateTask} tasks={itemTasks} />
+              </li>
+            ),
           )}
         </ul>
       )}
+
+      {status === "error" && <span>Error</span>}
 
       {value && value.data && value?.data.news.isShow && (
         <div className={styles.todo__newsWrapper}>
