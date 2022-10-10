@@ -37,4 +37,8 @@
       text-decoration-line: line-through;
     }
   }
+
+  &__toggleIcon {
+    color: var(--main-gray);
+  }
 }

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Typography, Box, IconButton, CircularProgress } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
@@ -9,6 +9,7 @@ import context from "../../context/Context";
 import TASKS from "../../constants/tasks";
 import DayTasks from "./components/DayTasks";
 import { Task } from "@/types/task.type";
+import processData from "../../packages/date/processDate";
 
 function Todo() {
   const value = useContext(context);
@@ -34,6 +35,19 @@ function Todo() {
     }, {} as { [key: string]: Task[] });
   };
 
+  const currentDate = useMemo((): Date => {
+    return new Date();
+  }, []);
+
+  const processDateByList = (date: string) => {
+    const today = currentDate;
+    const constructDate = new Date(date);
+    return processData(constructDate, today);
+  };
+
+  const callbackSort = ([a]: [string, unknown], [b]: [string, unknown]) =>
+    a.split(".")[1] > b.split(".")[1] ? 1 : -1;
+
   return (
     <div>
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -47,13 +61,22 @@ function Todo() {
 
       {status === "success" && (
         <ul className={styles.todo__tasks}>
-          {Object.entries(transformTasks(value?.data?.tasks)).map(
-            ([dateTask, itemTasks]) => (
+          {Object.entries(transformTasks(value?.data?.tasks))
+            .sort(callbackSort)
+            .filter(
+              ([dateTask]) =>
+                currentDate.getDate() - new Date(dateTask).getDate() <= 0,
+            )
+            .map(([dateTask, itemTasks]) => (
               <li key={dateTask}>
-                <DayTasks data={dateTask} tasks={itemTasks} />
+                <Box marginBottom={4}>
+                  <DayTasks
+                    data={processDateByList(dateTask)}
+                    tasks={itemTasks}
+                  />
+                </Box>
               </li>
-            ),
-          )}
+            ))}
         </ul>
       )}
 
