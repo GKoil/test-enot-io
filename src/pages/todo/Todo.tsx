@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Typography, Box, IconButton } from "@mui/material";
+import { Typography, Box, IconButton, CircularProgress } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import ModalSetting from "./components/ModalSetting";
 import styles from "./Todo.module.scss";
@@ -43,19 +43,27 @@ function Todo() {
         </IconButton>
       </Box>
 
-      {status === "loading" && <span>spinner</span>}
+      {status === "loading" && <CircularProgress />}
 
-      <ul className={styles.todo__tasks}>
-        {Object.entries(transformTasks(value?.data?.tasks)).map(
-          ([dateTask, itemTasks]) => {
-            return (
-              <li key={dateTask}>
-                <DayTasks data={dateTask} tasks={itemTasks} />
-              </li>
-            );
-          },
-        )}
-      </ul>
+      {status === "success" && (
+        <ul className={styles.todo__tasks}>
+          {Object.entries(transformTasks(value?.data?.tasks)).map(
+            ([dateTask, itemTasks]) => {
+              return (
+                <li key={dateTask}>
+                  <DayTasks data={dateTask} tasks={itemTasks} />
+                </li>
+              );
+            },
+          )}
+        </ul>
+      )}
+
+      {value && value.data && value?.data.news.isShow && (
+        <div className={styles.todo__newsWrapper}>
+          <p className={styles.todo__news}>{value?.data?.news.title}</p>
+        </div>
+      )}
 
       {isOpen && <ModalSetting isOpen={isOpen} toggleModal={toggleModal} />}
     </div>

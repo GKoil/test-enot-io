@@ -1,3 +1,3 @@
-import getNews from "./rest/news";
+import * as news from "./rest/news";
 
-export default { getNews };
+export default { news };

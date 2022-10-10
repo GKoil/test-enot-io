@@ -28,7 +28,20 @@ function Provider({ children }: ProviderType) {
         return { ...prev, tasks: newTasks };
       });
     },
-    toggleNews: () => {},
+    setNews: (title: string) => {
+      setData((prev) => {
+        if (!prev) return null;
+
+        return { ...prev, news: { ...prev?.news, title } };
+      });
+    },
+    toggleNews: () => {
+      setData((prev) => {
+        if (!prev) return null;
+
+        return { ...prev, news: { ...prev?.news, isShow: !prev.news.isShow } };
+      });
+    },
     addTasks: (tasks: Task[]) => {
       setData((prev) => ({
         tasks,

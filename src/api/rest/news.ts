@@ -1,6 +1,7 @@
 import makeRequest from "../makeRequest";
 
-const getNews = () => {
+// eslint-disable-next-line import/prefer-default-export
+export const getNews = () => {
   return makeRequest(
     "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/NewsSearchAPI?q=%3CREQUIRED%3E&pageNumber=1&pageSize=10&autoCorrect=true&fromPublishedDate=null&toPublishedDate=null",
     {
@@ -10,5 +11,3 @@ const getNews = () => {
     "GET",
   );
 };
-
-export default getNews;

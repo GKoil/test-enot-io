@@ -1,8 +1,9 @@
 import { Box, Modal, Switch, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
-import getNews from "../../../../api";
+import { useContext } from "react";
 import context from "../../../../context/Context";
+import styles from "./ModalSetting.module.scss";
+import api from "../../../../api";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,28 +25,40 @@ type ModalSettingType = {
 
 function ModalSetting({ isOpen, toggleModal }: ModalSettingType) {
   const value = useContext(context);
-  const [isChecked, setIsChecked] = useState(false);
 
   const { refetch } = useQuery(
     ["news"],
-    () => {
-      getNews.getNews();
+    async () => {
+      try {
+        const data = await (await api.news.getNews()).json();
+        const prepareData = data.value[1].description as string;
+        value?.actions.setNews(prepareData);
+        console.log(data.value[1].description);
+      } catch (error) {
+        // process error
+      }
+
+      return () => {};
     },
     { enabled: false },
   );
 
   const toggleNews = (event: React.ChangeEvent<HTMLInputElement>) => {
     refetch();
-    setIsChecked(event.target.checked);
+    value?.actions.toggleNews(event.target.checked);
   };
 
   return (
     <Modal open={isOpen} onClose={toggleModal}>
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6">
+        <Typography
+          className={styles.modalSetting__title}
+          id="modal-modal-title"
+          variant="h6"
+        >
           Включить новости?
         </Typography>
-        <Switch checked={isChecked} onChange={toggleNews} />
+        <Switch checked={value?.data?.news.isShow} onChange={toggleNews} />
       </Box>
     </Modal>
   );
