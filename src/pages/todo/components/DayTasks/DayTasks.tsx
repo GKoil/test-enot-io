@@ -12,11 +12,12 @@ import context from "../../../../context/Context";
 type DayTasksType = {
   data: string;
   tasks: Task[];
+  isOpenDay: boolean;
 };
 
-function DayTasks({ data, tasks }: DayTasksType) {
+function DayTasks({ data, tasks, isOpenDay = false }: DayTasksType) {
   const value = useContext(context);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(isOpenDay);
 
   const handleToggleTask = (id: number) => {
     // process request
@@ -40,7 +41,7 @@ function DayTasks({ data, tasks }: DayTasksType) {
             marginLeft={2}
           >
             <CheckBoxIcon />
-            <Typography variant="h6">{`${data} Tasks`}</Typography>
+            <Typography variant="h6">{`${data} Tasks:`}</Typography>
             <Box marginLeft="auto" marginRight={2}>
               <IconButton onClick={handleToggleList}>
                 <span className="visually-hidden">Скрыть список </span>

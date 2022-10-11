@@ -67,12 +67,13 @@ function Todo() {
               ([dateTask]) =>
                 currentDate.getDate() - new Date(dateTask).getDate() <= 0,
             )
-            .map(([dateTask, itemTasks]) => (
+            .map(([dateTask, itemTasks], index) => (
               <li key={dateTask}>
                 <Box marginBottom={4}>
                   <DayTasks
                     data={processDateByList(dateTask)}
                     tasks={itemTasks}
+                    isOpenDay={index === 0}
                   />
                 </Box>
               </li>
