@@ -1,5 +1,10 @@
 .todo {
-  &__title {
+  &__header {
+    padding-inline: 37px;
+  }
+
+  &__main {
+    padding-inline: 20px;
   }
 
   &__setting {

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Typography, Box, IconButton } from "@mui/material";
 import classNames from "classnames";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -7,6 +6,7 @@ import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { Task } from "@/types/task.type";
 import styles from "./DayTasks.module.scss";
 import DayTask from "../Task";
+import useToggle from "../../../../hooks/useToggle";
 
 type DayTasksType = {
   data: string;
@@ -15,11 +15,7 @@ type DayTasksType = {
 };
 
 function DayTasks({ data, tasks, isOpenDay = false }: DayTasksType) {
-  const [isOpen, setIsOpen] = useState(isOpenDay);
-
-  const handleToggleList = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const [isOpen, setIsOpen] = useToggle(isOpenDay);
 
   return (
     <div>
@@ -36,7 +32,7 @@ function DayTasks({ data, tasks, isOpenDay = false }: DayTasksType) {
             <CheckBoxIcon />
             <Typography variant="h6">{`${data} Tasks:`}</Typography>
             <Box marginLeft="auto" marginRight={2}>
-              <IconButton onClick={handleToggleList}>
+              <IconButton onClick={setIsOpen}>
                 <span className="visually-hidden">Скрыть список </span>
                 <ArrowCircleUpIcon className={styles.dayTasks__toggleIcon} />
               </IconButton>
@@ -70,7 +66,7 @@ function DayTasks({ data, tasks, isOpenDay = false }: DayTasksType) {
             )}
             variant="h6"
           >{`${data} Tasks`}</Typography>
-          <IconButton onClick={handleToggleList}>
+          <IconButton onClick={setIsOpen}>
             <span className="visually-hidden">Раскрыть список</span>
             <ArrowDropDownCircleRoundedIcon
               className={styles.dayTasks__toggleIcon}

@@ -59,46 +59,50 @@ function Todo() {
   }, [status, value]);
 
   return (
-    <div>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="h4">To Do</Typography>
-        <IconButton onClick={setIsOpen}>
-          <SettingsIcon className={styles.todo__setting} fontSize="large" />
-        </IconButton>
-      </Box>
+    <>
+      <header className={styles.todo__header}>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography variant="h4">To Do</Typography>
+          <IconButton onClick={setIsOpen}>
+            <SettingsIcon className={styles.todo__setting} fontSize="large" />
+          </IconButton>
+        </Box>
+      </header>
 
-      {status === "loading" && <CircularProgress />}
+      <main className={styles.todo__main}>
+        {status === "loading" && <CircularProgress />}
 
-      {status === "success" && (
-        <ul className={styles.todo__tasks}>
-          {days.map(([dateTask, itemTasks], index) => (
-            <li key={dateTask}>
-              <Box marginBottom={4}>
-                <DayTasks
-                  data={dateTask}
-                  tasks={itemTasks}
-                  isOpenDay={index === 0}
-                />
-              </Box>
-            </li>
-          ))}
-        </ul>
-      )}
+        {status === "success" && (
+          <ul className={styles.todo__tasks}>
+            {days.map(([dateTask, itemTasks], index) => (
+              <li key={dateTask}>
+                <Box marginBottom={4}>
+                  <DayTasks
+                    data={dateTask}
+                    tasks={itemTasks}
+                    isOpenDay={index === 0}
+                  />
+                </Box>
+              </li>
+            ))}
+          </ul>
+        )}
 
-      {status === "error" && <span>Error</span>}
+        {status === "error" && <span>Error</span>}
 
-      {value && value.data && value?.data.news.isShow && (
-        <div className={styles.todo__newsWrapper}>
-          <p className={styles.todo__news}>{value?.data?.news.title}</p>
-        </div>
-      )}
+        {value && value.data && value?.data.news.isShow && (
+          <div className={styles.todo__newsWrapper}>
+            <p className={styles.todo__news}>{value?.data?.news.title}</p>
+          </div>
+        )}
 
-      {isOpen && (
-        <Portal>
-          <ModalSetting isOpen={isOpen} toggleModal={setIsOpen} />
-        </Portal>
-      )}
-    </div>
+        {isOpen && (
+          <Portal>
+            <ModalSetting isOpen={isOpen} toggleModal={setIsOpen} />
+          </Portal>
+        )}
+      </main>
+    </>
   );
 }
 
