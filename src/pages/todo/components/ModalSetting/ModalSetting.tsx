@@ -33,7 +33,6 @@ function ModalSetting({ isOpen, toggleModal }: ModalSettingType) {
         const data = await (await api.news.getNews()).json();
         const prepareData = data.value[1].description as string;
         value?.actions.setNews(prepareData);
-        console.log(data.value[1].description);
       } catch (error) {
         // process error
       }

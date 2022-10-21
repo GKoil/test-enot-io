@@ -66,10 +66,12 @@ footer {
 
 /* colors */
 
-body {
+:root {
   --main-dark: #222222;
   --main-gray: #F4F4F4;
   --main-light-gray: #A9A9A9;
+
+  --day-dark: #282828;
 
   --status-hight: #FF0000;
   --status-low: #366EFF;

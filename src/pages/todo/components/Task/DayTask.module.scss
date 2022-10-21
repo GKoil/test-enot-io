@@ -1,0 +1,45 @@
+.dayTask {
+  &__title {
+    font-weight: 600;
+    max-width: 235px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+    &_completed {
+      text-decoration-line: line-through;
+    }
+  }
+
+  &__description {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 176px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+  }
+
+  &__priority {
+    border: none;
+    margin-block: 4%;
+    width: 5px;
+    display: block;
+    max-width: 5px;
+    padding: 0;
+    border-radius: 3px;
+
+    &_hight {
+      background-color: var(--status-hight);
+    }
+
+    &_medium {
+      background-color: var(--status-medium);
+    }
+
+    &_low {
+      background-color: var(--status-low);
+    }
+  }
+}
