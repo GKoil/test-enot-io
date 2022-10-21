@@ -9,12 +9,6 @@ import Provider from "./context/Provider";
 const theme = createTheme({
   typography: {
     fontFamily: ["Arial", "sans-serif"].join(","),
-    h5: {
-      fontWeight: 600,
-    },
-    subtitle2: {
-      fontWeight: 600,
-    },
   },
 });
 

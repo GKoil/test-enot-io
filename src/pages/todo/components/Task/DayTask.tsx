@@ -41,6 +41,7 @@ function DayTask({
             })}
             variant="h5"
             title={title}
+            fontWeight={600}
           >
             {title}
           </Typography>
@@ -48,6 +49,7 @@ function DayTask({
             className={styles.dayTask__description}
             variant="subtitle2"
             title={description}
+            fontWeight={600}
           >
             {description}
           </Typography>
