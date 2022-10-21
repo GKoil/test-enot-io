@@ -10,6 +10,8 @@ import TASKS from "../../constants/tasks";
 import DayTasks from "./components/DayTasks";
 import { Task } from "@/types/task.type";
 import processData from "../../packages/date/processDate";
+import Portal from "../../ui-kit/Portal";
+import useToggle from "../../hooks/useToggle";
 
 const callbackSort = ([a]: [string, unknown], [b]: [string, unknown]) =>
   a.split(".")[1] > b.split(".")[1] ? 1 : -1;
@@ -27,17 +29,13 @@ const transformTasks = (tasksFn?: Task[]) => {
 
 function Todo() {
   const value = useContext(context);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useToggle(false);
   const [days, setDays] = useState<[string, Task[]][]>([]);
 
   const { status } = useQuery(["tasks"], () => {
     value?.actions.addTasks(TASKS);
     return () => {};
   });
-
-  const toggleModal = () => {
-    setIsOpen((prev) => !prev);
-  };
 
   useEffect(() => {
     const today = new Date();
@@ -64,7 +62,7 @@ function Todo() {
     <div>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h4">To Do</Typography>
-        <IconButton onClick={toggleModal}>
+        <IconButton onClick={setIsOpen}>
           <SettingsIcon className={styles.todo__setting} fontSize="large" />
         </IconButton>
       </Box>
@@ -95,7 +93,11 @@ function Todo() {
         </div>
       )}
 
-      {isOpen && <ModalSetting isOpen={isOpen} toggleModal={toggleModal} />}
+      {isOpen && (
+        <Portal>
+          <ModalSetting isOpen={isOpen} toggleModal={setIsOpen} />
+        </Portal>
+      )}
     </div>
   );
 }
