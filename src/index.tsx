@@ -5,11 +5,16 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import "./index.css";
 import App from "./App";
 import Provider from "./context/Provider";
-import "@fontsource/abhaya-libre";
 
 const theme = createTheme({
   typography: {
     fontFamily: ["Arial", "sans-serif"].join(","),
+    h5: {
+      fontWeight: 600,
+    },
+    subtitle2: {
+      fontWeight: 600,
+    },
   },
 });
 
