@@ -3,6 +3,7 @@ import { useContext } from "react";
 import context from "../../../../context/Context";
 import styles from "./ModalSetting.module.scss";
 import useGetNews from "../../../../hooks/service/useGetNews";
+import { actions } from "../../../../context/Provider";
 
 const style = {
   position: "absolute" as "absolute",
@@ -31,7 +32,7 @@ function ModalSetting({ isOpen, toggleModal }: ModalSettingType) {
       refetch();
     }
 
-    value?.actions.toggleNews(event.target.checked);
+    actions?.toggleNews(event.target.checked);
   };
 
   return (

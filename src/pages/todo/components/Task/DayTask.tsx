@@ -1,8 +1,7 @@
 import { Typography, Box } from "@mui/material";
-import { useContext, memo } from "react";
 import classNames from "classnames";
 import Toggler from "../../../../ui-kit/Toggler";
-import context from "../../../../context/Context";
+import { actions } from "../../../../context/Provider";
 import styles from "./DayTask.module.scss";
 import { Task } from "@/types/task.type";
 
@@ -15,11 +14,9 @@ function DayTask({
   priority,
   isCompleted,
 }: DayTasksType) {
-  const value = useContext(context);
-
   const handleToggleTask = () => {
     // process request
-    value?.actions.toggleTask(id);
+    actions?.toggleTask(id);
   };
 
   return (
@@ -60,4 +57,4 @@ function DayTask({
   );
 }
 
-export default memo(DayTask);
+export default DayTask;

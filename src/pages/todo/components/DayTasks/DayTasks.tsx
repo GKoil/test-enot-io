@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Typography, Box, IconButton } from "@mui/material";
 import classNames from "classnames";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -78,4 +79,4 @@ function DayTasks({ data, tasks, isOpenDay = false }: DayTasksType) {
   );
 }
 
-export default DayTasks;
+export default memo(DayTasks);

@@ -12,6 +12,7 @@ import { Task } from "@/types/task.type";
 import processData from "../../packages/date/processDate";
 import Portal from "../../ui-kit/Portal";
 import useToggle from "../../hooks/useToggle";
+import { actions } from "../../context/Provider";
 
 const callbackSort = ([a]: [string, unknown], [b]: [string, unknown]) =>
   a.split(".")[1] > b.split(".")[1] ? 1 : -1;
@@ -33,7 +34,7 @@ function Todo() {
   const [days, setDays] = useState<[string, Task[]][]>([]);
 
   const { status } = useQuery(["tasks"], () => {
-    value?.actions.addTasks(TASKS);
+    actions?.addTasks(TASKS);
     return () => {};
   });
 

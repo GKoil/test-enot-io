@@ -8,10 +8,18 @@ type ProviderType = {
   children: React.ReactNode;
 };
 
+// eslint-disable-next-line import/no-mutable-exports
+export let actions: {
+  toggleTask: (id: number) => void;
+  setNews: (title: string) => void;
+  toggleNews: (isChecked?: boolean) => void;
+  addTasks: (tasks: Task[]) => void;
+} | null = null;
+
 function Provider({ children }: ProviderType) {
   const [data, setData] = useState<Data | null>(null);
 
-  const actions = {
+  actions = {
     toggleTask: (id: number) => {
       const selectedTaskIndex = data?.tasks.findIndex((task) => task.id === id);
       if (selectedTaskIndex === undefined || !data?.tasks) return;
@@ -35,11 +43,17 @@ function Provider({ children }: ProviderType) {
         return { ...prev, news: { ...prev?.news, title } };
       });
     },
-    toggleNews: () => {
+    toggleNews: (isChecked) => {
       setData((prev) => {
         if (!prev) return null;
 
-        return { ...prev, news: { ...prev?.news, isShow: !prev.news.isShow } };
+        return {
+          ...prev,
+          news: {
+            ...prev?.news,
+            isShow: isChecked || !prev.news.isShow,
+          },
+        };
       });
     },
     addTasks: (tasks: Task[]) => {
@@ -52,7 +66,7 @@ function Provider({ children }: ProviderType) {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <Context.Provider value={{ data, actions }}>{children}</Context.Provider>
+    <Context.Provider value={{ data }}>{children}</Context.Provider>
   );
 }
 
