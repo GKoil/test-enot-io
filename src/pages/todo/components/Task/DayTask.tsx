@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Typography, Box } from "@mui/material";
 import classNames from "classnames";
 import Toggler from "../../../../ui-kit/Toggler";
@@ -57,4 +58,4 @@ function DayTask({
   );
 }
 
-export default DayTask;
+export default memo(DayTask);
