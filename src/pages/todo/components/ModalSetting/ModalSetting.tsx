@@ -1,9 +1,8 @@
 import { Box, Modal, Switch, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import context from "../../../../context/Context";
 import styles from "./ModalSetting.module.scss";
-import api from "../../../../api";
+import useGetNews from "../../../../hooks/service/useGetNews";
 
 const style = {
   position: "absolute" as "absolute",
@@ -25,25 +24,13 @@ type ModalSettingType = {
 
 function ModalSetting({ isOpen, toggleModal }: ModalSettingType) {
   const value = useContext(context);
-
-  const { refetch } = useQuery(
-    ["news"],
-    async () => {
-      try {
-        const data = await (await api.news.getNews()).json();
-        const prepareData = data.value[1].description as string;
-        value?.actions.setNews(prepareData);
-      } catch (error) {
-        // process error
-      }
-
-      return () => {};
-    },
-    { enabled: false },
-  );
+  const { refetch, isFetching } = useGetNews();
 
   const toggleNews = (event: React.ChangeEvent<HTMLInputElement>) => {
-    refetch();
+    if (event.target.checked) {
+      refetch();
+    }
+
     value?.actions.toggleNews(event.target.checked);
   };
 
@@ -57,7 +44,11 @@ function ModalSetting({ isOpen, toggleModal }: ModalSettingType) {
         >
           Включить новости?
         </Typography>
-        <Switch checked={value?.data?.news.isShow} onChange={toggleNews} />
+        <Switch
+          checked={value?.data?.news.isShow}
+          disabled={isFetching}
+          onChange={toggleNews}
+        />
       </Box>
     </Modal>
   );
