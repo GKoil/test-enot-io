@@ -1,69 +1,29 @@
 import { Task } from "@/types/task.type";
 
-const TASKS: Task[] = [
-  {
-    id: 1,
-    date: "10.21.2022",
-    title: "Visit David",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    priority: "hight",
-    isCompleted: false,
-  },
-  {
-    id: 2,
-    date: "10.21.2022",
-    title: "Goceries For Dinner",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    priority: "medium",
-    isCompleted: true,
-  },
-  {
-    id: 3,
-    date: "10.22.2022",
-    title: "Fix Dad’s iPad",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    priority: "hight",
-    isCompleted: true,
-  },
-  {
-    id: 4,
-    date: "10.23.2022",
-    title: "Fix Dad’s iPad",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    priority: "medium",
-    isCompleted: true,
-  },
-  {
-    id: 5,
-    date: "10.24.2022",
-    title: "Fix Dad’s iPad",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    priority: "medium",
-    isCompleted: true,
-  },
-  {
-    id: 6,
-    date: "10.25.2022",
-    title: "Fix Dad’s iPad",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    priority: "medium",
-    isCompleted: true,
-  },
-  {
-    id: 7,
-    date: "10.26.2022",
-    title: "Fix Dad’s iPad",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    priority: "medium",
-    isCompleted: true,
-  },
-];
+const PRIORITY = ["low", "medium", "hight"] as const;
+const TITLE = "Goceries For Dinner";
+const DESCRIPTION =
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry";
+
+const today = new Date();
+let day = today.getDate() - 1;
+const month = today.getMonth() + 1;
+
+const getRandomNumber = (max: number) => Math.floor(Math.random() * max);
+
+const TASKS: Task[] = Array.from(Array(10).keys()).map((item) => {
+  if (item % 3 === 0) {
+    day += 1;
+  }
+
+  return {
+    id: item,
+    date: `${month}.${day}.${today.getFullYear()}`,
+    title: TITLE,
+    description: DESCRIPTION,
+    priority: PRIORITY[getRandomNumber(3)],
+    isCompleted: getRandomNumber(2) === 0,
+  };
+});
 
 export default TASKS;
